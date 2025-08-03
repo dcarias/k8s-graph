@@ -96,25 +96,87 @@ k8s-graph \
   --neo4j-username=your-user \
   --neo4j-password=your-password \
   --cluster-name=production
+
+# Run with custom configuration
+k8s-graph \
+  --cluster-name=production \
+  --log-level=DEBUG \
+  --event-ttl-days=30 \
+  --http-port=9090
 ```
 
-### Configuration
+## CLI Reference
 
-#### Command Line Options
-```
-Options:
-  --cluster-name string        Name of the Kubernetes cluster (default "default")
-  --event-ttl-days int         Number of days to retain events, 0 disables (default 7)
-  --http-enabled               Enable HTTP server for status (default true)
-  --http-port int              HTTP server port (default 8080)
-  --kubeconfig string          Path to kubeconfig file (uses in-cluster config if empty)
-  --log-level string           Log level: DEBUG, INFO, WARN, ERROR (default "INFO")
-  --neo4j-password string      Neo4j password (default "password")
-  --neo4j-uri string           Neo4j database URI (default "neo4j://localhost:7687")
-  --neo4j-username string      Neo4j username (default "neo4j")
+The k8s-graph CLI provides comprehensive options for configuring your Kubernetes-to-Neo4j monitoring:
+
+### Command Line Options
+
+```bash
+k8s-graph [OPTIONS]
 ```
 
-#### Environment Variables
+| Option | Description | Default | Environment Variable |
+|--------|-------------|---------|---------------------|
+| `--cluster-name` | Name of the Kubernetes cluster | `default` | `CLUSTER_NAME` |
+| `--event-ttl-days` | Days to retain events (0 disables) | `7` | - |
+| `--http-enabled` | Enable HTTP status server | `true` | `HTTP_ENABLED` |
+| `--http-port` | HTTP server port | `8080` | `HTTP_PORT` |
+| `--kubeconfig` | Path to kubeconfig file | auto-detect | `KUBECONFIG` |
+| `--log-level` | Log level (DEBUG, INFO, WARN, ERROR) | `INFO` | `LOG_LEVEL` |
+| `--neo4j-password` | Neo4j password | `password` | `NEO4J_PASSWORD` |
+| `--neo4j-uri` | Neo4j database URI | `neo4j://localhost:7687` | `NEO4J_URI` |
+| `--neo4j-username` | Neo4j username | `neo4j` | `NEO4J_USERNAME` |
+
+### Usage Examples
+
+```bash
+# Basic local development
+k8s-graph --cluster-name=dev-cluster
+
+# Production deployment with remote Neo4j
+k8s-graph \
+  --cluster-name=prod-k8s \
+  --neo4j-uri=neo4j+s://prod-neo4j.company.com:7687 \
+  --neo4j-username=k8s-monitor \
+  --neo4j-password=secure-password \
+  --log-level=INFO \
+  --event-ttl-days=14
+
+# High-performance setup (disable events)
+k8s-graph \
+  --cluster-name=large-cluster \
+  --event-ttl-days=0 \
+  --log-level=WARN
+
+# Custom kubeconfig and monitoring port
+k8s-graph \
+  --kubeconfig=/path/to/admin.conf \
+  --cluster-name=remote-cluster \
+  --http-port=9090
+
+# Environment variable configuration
+export NEO4J_URI="neo4j://neo4j.monitoring.svc.cluster.local:7687"
+export NEO4J_USERNAME="graph-user"
+export NEO4J_PASSWORD="secure-pass"
+export CLUSTER_NAME="staging"
+export LOG_LEVEL="DEBUG"
+k8s-graph
+```
+
+### Help and Version
+
+```bash
+# Show help
+k8s-graph --help
+
+# Show version information
+k8s-graph --version
+```
+
+### Advanced Configuration
+
+All CLI options can be configured via environment variables for containerized deployments:
+
 ```bash
 export KUBECONFIG=/path/to/kubeconfig
 export CLUSTER_NAME=production
