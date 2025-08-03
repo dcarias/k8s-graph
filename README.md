@@ -32,8 +32,57 @@ Perfect for:
 - Go 1.21+ (for building from source)
 
 ### Install
+
+#### Using Go
 ```bash
 go install github.com/dcarias/k8s-graph@latest
+```
+
+#### Using Helm
+```bash
+# Add the k8s-graph Helm repository
+helm repo add k8s-graph https://dcarias.github.io/k8s-graph
+
+# Update your local Helm chart repository cache
+helm repo update
+
+# Install k8s-graph
+helm install k8s-graph k8s-graph/k8s-graph \
+  --set neo4j.uri="neo4j://your-neo4j:7687" \
+  --set neo4j.username="neo4j" \
+  --set neo4j.password="your-password" \
+  --set clusterName="production"
+
+# Or install with custom values file
+helm install k8s-graph k8s-graph/k8s-graph -f values.yaml
+```
+
+#### Sample Helm Values
+```yaml
+# values.yaml
+clusterName: "production"
+logLevel: "INFO"
+
+neo4j:
+  uri: "neo4j://neo4j-service:7687"
+  username: "neo4j"
+  password: "your-password"
+  # Or use existing secret
+  existingSecret: "neo4j-credentials"
+  usernameKey: "username"
+  passwordKey: "password"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
 ```
 
 ### Basic Usage
@@ -171,7 +220,20 @@ ORDER BY e.createdAt DESC
 
 ## Deployment
 
-### Kubernetes Deployment
+### Using Helm (Recommended)
+
+The easiest way to deploy k8s-graph is using the official Helm chart:
+
+```bash
+helm repo add k8s-graph https://dcarias.github.io/k8s-graph
+helm install k8s-graph k8s-graph/k8s-graph \
+  --set neo4j.uri="neo4j://your-neo4j:7687" \
+  --set neo4j.username="neo4j" \
+  --set neo4j.password="your-password" \
+  --set clusterName="production"
+```
+
+### Manual Kubernetes Deployment
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
