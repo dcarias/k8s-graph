@@ -1,0 +1,90 @@
+# Default values for kubegraph
+replicaCount: 1
+
+# Namespace configuration
+namespace:
+  # The namespace where kubegraph will be deployed
+  # If not specified, Helm will use the namespace from --namespace flag
+  name: ""
+  # Whether to create the namespace if it doesn't exist
+  create: false
+  # Annotations to add to the namespace
+  annotations: {}
+  # Labels to add to the namespace
+  labels: {}
+
+image:
+  repository: dcarias/kubegraph
+  tag: latest
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
+  # Annotations to add to the ClusterRole
+  annotations: {}
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Neo4j configuration
+neo4j:
+  uri: "neo4j://neo4j:7687"
+  username: "neo4j"
+  password: "password"
+  # If true, creates a secret for Neo4j credentials
+  createSecret: true
+  # If createSecret is false, specify the name of an existing secret
+  existingSecret: ""
+
+# Kubernetes configuration
+kubernetes:
+  clusterName: "default"
+  # If true, uses in-cluster config
+  # If false, specify the path to kubeconfig
+  useInClusterConfig: true
+  configPath: "" 
+
+# Autoscaling configuration
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80 

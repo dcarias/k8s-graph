@@ -1,0 +1,45 @@
+# Example values file for kubegraph with namespace configuration
+# Usage: helm install kubegraph ./helm/kubegraph -f helm/kubegraph/values/namespace-example.yaml
+
+# Namespace configuration
+namespace:
+  # The namespace where kubegraph will be deployed
+  name: "monitoring"
+  # Whether to create the namespace if it doesn't exist
+  create: true
+  # Annotations to add to the namespace
+  annotations:
+    purpose: "kubegraph-monitoring"
+    owner: "platform-team"
+    cost-center: "monitoring"
+  # Labels to add to the namespace
+  labels:
+    environment: "production"
+    tier: "monitoring"
+    app: "kubegraph"
+
+# Neo4j configuration
+neo4j:
+  uri: "neo4j://neo4j-monitoring:7687"
+  username: "neo4j"
+  password: "your-secure-password"
+  createSecret: true
+
+# Kubernetes configuration
+kubernetes:
+  clusterName: "production-cluster"
+
+# Resource configuration for production
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+# RBAC configuration
+rbac:
+  create: true
+  annotations:
+    purpose: "kubegraph-rbac" 

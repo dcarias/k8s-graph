@@ -1,0 +1,17 @@
+apiVersion: v2
+name: kubegraph
+description: A Helm chart for deploying kubegraph - Kubernetes cluster visualization using Neo4j
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: dcarias
+    email: dcarias@example.com
+keywords:
+  - kubernetes
+  - neo4j
+  - visualization
+  - monitoring
+home: https://github.com/dcarias/kubegraph
+sources:
+  - https://github.com/dcarias/kubegraph 

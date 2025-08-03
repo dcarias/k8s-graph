@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kubegraph.fullname" . }}-config
+  labels:
+    {{- include "kubegraph.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    kubernetes:
+      clusterName: {{ .Values.kubernetes.clusterName | quote }}
+      {{- if not .Values.kubernetes.useInClusterConfig }}
+      configPath: {{ .Values.kubernetes.configPath | quote }}
+      {{- end }}
+    neo4j:
+      uri: {{ .Values.neo4j.uri | quote }}
+      {{- if not .Values.neo4j.createSecret }}
+      username: {{ .Values.neo4j.username | quote }}
+      password: {{ .Values.neo4j.password | quote }}
+      {{- end }} 

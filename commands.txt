@@ -1,0 +1,16 @@
+# Show help
+./kubegraph --help
+./kubegraph -h
+
+# Run with event tracking disabled
+./kubegraph --event-ttl-days=0
+
+# Run with custom settings
+./kubegraph --cluster-name=production --log-level=DEBUG --event-ttl-days=30
+
+# Run on duvaleks6
+./kubegraph --cluster-name=duvaleks6-orch-0001 --log-level=INFO --event-ttl-days=3
+
+# Run to a different neo4j database
+./kubegraph --cluster-name=duvaleks6-orch-0001 --log-level=INFO --event-ttl-days=3 --neo4j-uri=neo4j://e8d2f167-duvaleks6.databases.neo4j-dev.io:7687
+

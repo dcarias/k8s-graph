@@ -1,0 +1,115 @@
+apiVersion: kubegraph.io/v1alpha1
+kind: Handler
+metadata:
+  name: custom-app-handler
+  annotations:
+    description: "Generic handler for custom application resources"
+spec:
+  resourceType: "CustomApp"
+  gvr:
+    group: "apps.example.com"
+    version: "v1"
+    resource: "customapps"
+  enabled: true
+  priority: 100
+  properties:
+    name:
+      path: ".metadata.name"
+      type: "string"
+      required: true
+    uid:
+      path: ".metadata.uid"
+      type: "string"
+      required: true
+    namespace:
+      path: ".metadata.namespace"
+      type: "string"
+      required: true
+    creationTimestamp:
+      path: ".metadata.creationTimestamp"
+      type: "string"
+      transform: "timestamp"
+    labels:
+      path: ".metadata.labels"
+      type: "object"
+    annotations:
+      path: ".metadata.annotations"
+      type: "object"
+    status:
+      path: ".status.phase"
+      type: "string"
+    replicas:
+      path: ".spec.replicas"
+      type: "int"
+    image:
+      path: ".spec.template.spec.containers[0].image"
+      type: "string"
+    ports:
+      path: ".spec.template.spec.containers[0].ports"
+      type: "array"
+    env:
+      path: ".spec.template.spec.containers[0].env"
+      type: "array"
+    resources:
+      path: ".spec.template.spec.containers[0].resources"
+      type: "object"
+    config:
+      path: ".spec.config"
+      type: "object"
+    healthCheck:
+      path: ".spec.healthCheck"
+      type: "object"
+  relationships:
+    - type: "OWNED_BY"
+      target: "Deployment"
+      direction: "outgoing"
+      selector:
+        byOwnerReference: true
+    - type: "MANAGES"
+      target: "Pod"
+      direction: "outgoing"
+      selector:
+        byLabelSelector:
+          labels:
+            "app": ".metadata.name"
+            "component": "custom-app"
+    - type: "USES"
+      target: "ConfigMap"
+      direction: "outgoing"
+      selector:
+        byLabelSelector:
+          labels:
+            "app": ".metadata.name"
+            "type": "config"
+    - type: "USES"
+      target: "Secret"
+      direction: "outgoing"
+      selector:
+        byLabelSelector:
+          labels:
+            "app": ".metadata.name"
+            "type": "secret"
+    - type: "EXPOSES"
+      target: "Service"
+      direction: "outgoing"
+      selector:
+        byLabelSelector:
+          labels:
+            "app": ".metadata.name"
+            "type": "service"
+  filters:
+    namespaces:
+      - "apps"
+      - "custom"
+    labels:
+      "app.kubernetes.io/part-of": "custom-apps"
+  retryPolicy:
+    maxRetries: 3
+    backoffDelay: "1s"
+    maxDelay: "30s"
+  monitoring:
+    metrics: true
+    logging:
+      level: "info"
+      events: true
+      errors: true 

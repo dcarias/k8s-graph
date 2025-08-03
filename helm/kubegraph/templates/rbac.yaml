@@ -1,0 +1,169 @@
+{{- if .Values.rbac.create -}}
+# ClusterRole for kubegraph - provides permissions to watch Kubernetes resources
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubegraph.fullname" . }}
+  labels:
+    {{- include "kubegraph.labels" . | nindent 4 }}
+  annotations:
+    {{- with .Values.rbac.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    kubegraph.io/service-account: {{ include "kubegraph.serviceAccountName" . }}
+    kubegraph.io/namespace: {{ .Release.Namespace }}
+    kubegraph.io/created-by: helm
+rules:
+  # Core resources - Cluster-scoped
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["limitranges"]
+    verbs: ["get", "list", "watch"]
+
+  # Core resources - Namespace-scoped
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["serviceaccounts"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["endpoints"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get", "list", "watch"]
+
+  # Apps resources - Namespace-scoped
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["statefulsets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["daemonsets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["replicasets"]
+    verbs: ["get", "list", "watch"]
+
+  # Batch resources - Namespace-scoped
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["batch"]
+    resources: ["cronjobs"]
+    verbs: ["get", "list", "watch"]
+
+  # Storage resources - Cluster-scoped
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+
+  # Autoscaling resources - Namespace-scoped
+  - apiGroups: ["autoscaling"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["autoscaling/v2"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["autoscaling.k8s.io"]
+    resources: ["verticalpodautoscalers"]
+    verbs: ["get", "list", "watch"]
+
+  # Policy resources - Namespace-scoped
+  - apiGroups: ["policy"]
+    resources: ["poddisruptionbudgets"]
+    verbs: ["get", "list", "watch"]
+
+  # Networking resources - Namespace-scoped
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["get", "list", "watch"]
+
+  # Neo4j Custom Resources - Namespace-scoped
+  - apiGroups: ["neo4j.io"]
+    resources: ["neo4jdatabases"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["neo4j.io"]
+    resources: ["neo4jclusters"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["neo4j.io"]
+    resources: ["neo4jsingleinstances"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["neo4j.io"]
+    resources: ["neo4jroles"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["neo4j.io"]
+    resources: ["backupschedules"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["neo4j.io"]
+    resources: ["domainnames"]
+    verbs: ["get", "list", "watch"]
+
+  # Ingress Config Custom Resources - Namespace-scoped
+  - apiGroups: ["ingressconfig.neo4j.io"]
+    resources: ["ipaccesscontrols"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["ingressconfig.neo4j.io"]
+    resources: ["customendpoints"]
+    verbs: ["get", "list", "watch"]
+
+  # Additional permissions for discovery and API access
+  - apiGroups: [""]
+    resources: ["componentstatuses"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["resourcequotas"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["replicationcontrollers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get", "list", "watch"]
+---
+# ClusterRoleBinding for kubegraph - binds the ClusterRole to the ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubegraph.fullname" . }}
+  labels:
+    {{- include "kubegraph.labels" . | nindent 4 }}
+  annotations:
+    kubegraph.io/service-account: {{ include "kubegraph.serviceAccountName" . }}
+    kubegraph.io/namespace: {{ .Release.Namespace }}
+    kubegraph.io/created-by: helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "kubegraph.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "kubegraph.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+{{- end }} 

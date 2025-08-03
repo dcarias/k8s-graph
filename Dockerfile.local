@@ -1,0 +1,18 @@
+# Dockerfile for KubeGraph with locally built binary
+# This Dockerfile copies a pre-built binary from the local filesystem
+
+FROM alpine:3.19
+
+WORKDIR /app
+
+# Install CA certificates for HTTPS
+RUN apk --no-cache add ca-certificates
+
+# Copy the locally built binary
+COPY kubegraph .
+
+# Run as non-root user
+RUN adduser -D -g '' appuser
+USER appuser
+
+ENTRYPOINT ["./kubegraph"] 

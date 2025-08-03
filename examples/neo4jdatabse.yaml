@@ -1,0 +1,1058 @@
+apiVersion: v1
+items:
+- apiVersion: neo4j.io/v1
+  internalState:
+    loadRestoreState:
+      requestedAt: null
+    originBackup: {}
+    replacingBackend: false
+    transferringBackend: false
+  kind: Neo4jDatabase
+  metadata:
+    creationTimestamp: "2025-06-19T13:55:48Z"
+    generation: 1
+    labels:
+      dbid: deadbeat1
+    name: deadbeat1
+    namespace: default
+    resourceVersion: "56034348"
+    uid: bf409049-bd4e-45e8-ada1-f82a970b79ce
+  spec:
+    additionalSettings:
+      backup:
+        frequencyMinutes: 0
+        retentionDays: 0
+      logicalRestrictions: {}
+      plugins: null
+    clusterId: deadbeat1
+    coreDisk: {}
+    coreMemory:
+      packingEfficiency: false
+      size: "0"
+    dbid: ""
+    storageClassSettings:
+      coreStorageClassIdentifier: ""
+      jobStorageClassIdentifier: ""
+- apiVersion: neo4j.io/v1
+  internalState:
+    loadRestoreState:
+      requestedAt: null
+    originBackup:
+      backupName: snapshot-e1229598-load-restore-n87n6-data
+      lastUpdatedTime: "2025-06-02T14:55:16.334384637Z"
+    replacingBackend: false
+    transferringBackend: false
+  kind: Neo4jDatabase
+  metadata:
+    creationTimestamp: "2025-06-02T14:52:50Z"
+    generation: 4
+    labels:
+      alias: Mindful-Socrates
+      aura-priority: medium
+      aura-tier: professional
+      billing-identity: aura
+      console-tenant-id: 6bd13ce5-2c8f-43bd-869f-0bfd398c5de2
+      database-size: 1Gi
+      dbid: e1229598
+      neo4j-configuration-configmap: neo4j-configuration-2025.02.0-rc5-g692t8h56d
+      neo4j-full-version: 2025.02.0-rc5
+      neo4j-major-version: "5"
+      operator: neo4j-operator-00004
+      owner: 6bd13ce5-2c8f-43bd-869f-0bfd398c5de2
+    name: e1229598
+    namespace: default
+    resourceVersion: "56500058"
+    uid: 2ad98cd5-9717-4266-89d5-f2a8c83624ef
+  spec:
+    additionalSettings:
+      backup:
+        checkConsistency: true
+        concurrencyPolicy: Allow
+        failedBackupsHistoryLimit: 0
+        frequencyMinutes: 1440
+        retentionDays: 30
+        successfulBackupsHistoryLimit: 0
+        suspend: false
+      logicalRestrictions:
+        maxNodeCount: -1
+        maxRelationshipCount: -1
+      plugins: []
+    clusterId: e1229598
+    coreCount: 1
+    coreDisk:
+      size: 4
+      virtSize: 2
+    coreMemory:
+      packingEfficiency: true
+      size: 1Gi
+    cypherRoles:
+    - console-member-v1
+    - console-data-viewer-v1
+    - console-admin-pro-v1
+    databaseName: neo4j
+    dbid: e1229598
+    dnsName: e1229598-duvaleks6.databases.neo4j-dev.io
+    features:
+    - ld-downsize-real-disk
+    - ld-higher-backup-page-cache
+    - ld-restore-with-cosi
+    - ld-service-roles
+    - ld-skip-backup-recovery
+    - operator-test-toggle
+    neo4jMajorVersion: "5"
+    password: 9U_XFTrl99m4mlCGvH3qv-_<resumed>
+    primariesCount: 1
+    publicBoltPort: 7687
+    ssoConfig: |
+      dbms.security.authorization_providers=native,oidc-aura-seamless-connection
+      dbms.security.authentication_providers=native,oidc-aura-seamless-connection
+      dbms.security.oidc.aura-seamless-connection.display_name=Seamless
+      dbms.security.oidc.aura-seamless-connection.issuer=https://console-duvaleks6.neo4j-dev.io
+      dbms.security.oidc.aura-seamless-connection.jwks_uri=https://console-duvaleks6.neo4j-dev.io/.well-known/jwks.json
+      dbms.security.oidc.aura-seamless-connection.audience=e1229598
+      dbms.security.oidc.aura-seamless-connection.claims.username=sub
+      dbms.security.oidc.aura-seamless-connection.claims.groups=groups
+      dbms.security.oidc.aura-seamless-connection.visible=false
+    ssoK8sConfig:
+      dbms.security.authentication_providers: oidc-k8s,native
+      dbms.security.authorization_providers: oidc-k8s,native
+      dbms.security.oidc.k8s.audience: neo4j-operator-duvaleks6-orch-0001
+      dbms.security.oidc.k8s.auth_flow: pkce
+      dbms.security.oidc.k8s.authorization.group_to_role_mapping: neo4j-operator-duvaleks6-orch-0001=neo4j_operator
+      dbms.security.oidc.k8s.claims.groups: aud
+      dbms.security.oidc.k8s.claims.username: sub
+      dbms.security.oidc.k8s.config: token_type_principal=id_token;token_type_authentication=id_token
+      dbms.security.oidc.k8s.display_name: k8s
+      dbms.security.oidc.k8s.well_known_discovery_uri: https://oidc.eks.eu-west-1.amazonaws.com/id/2DE6D91A227C68B79A651A6C9A2E877C/.well-known/openid-configuration
+    storageClassSettings:
+      coreStorageClassIdentifier: core-gp3-csi
+      jobStorageClassIdentifier: core-gp3-csi
+    zone: eu-west-1c
+  status:
+    ClusterStatuses:
+      neo4j:
+        DesiredMembers: 1
+        Members:
+          p-e1229598-12f1-0001:
+            DiscoveryHealthy: false
+            Healthy: true
+            InRaftGroup: true
+            Leader: 783198d0-25b5-4429-bfed-acba6f371434
+            MemberID: 783198d0-25b5-4429-bfed-acba6f371434
+            RecentContactWithLeader: true
+        MembersRunningLatestVersion: 0
+        MembersWithBoltAvailable: 1
+        RunningMembers: 1
+        VotingMembers: 1
+      system:
+        DesiredMembers: 1
+        Members:
+          p-e1229598-12f1-0001:
+            DiscoveryHealthy: false
+            Healthy: true
+            InRaftGroup: true
+            Leader: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+            MemberID: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+            RecentContactWithLeader: true
+        MembersRunningLatestVersion: 0
+        MembersWithBoltAvailable: 1
+        RunningMembers: 1
+        VotingMembers: 1
+    DatabaseCounts:
+      currentNodes: 0
+      currentRelationship: 0
+      lastUpdate: "2025-06-20T08:04:57Z"
+    ShowDatabasesStatus:
+    - Access: read-write
+      Address: p-e1229598-12f1-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 1
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: C9C3A70F588C90EC8F0417D852B74CDF5FE12D2080891012CFAD79727EEEC16C
+      Default: true
+      Home: true
+      LastCommittedTxn: 4
+      Name: neo4j
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 1
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+      StatusMessage: ""
+      Store: block-block-1.1
+      Type: standard
+      Writer: true
+    - Access: read-write
+      Address: p-e1229598-12f1-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 1
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: 86045C082202899DED7EE1F407F8712262ECEF0F33A085BFA2AB8ACC1AC96D9E
+      Default: false
+      Home: false
+      LastCommittedTxn: 140
+      Name: system
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 0
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+      StatusMessage: ""
+      Store: record-aligned-1.1
+      Type: system
+      Writer: true
+    ShowServersStatus:
+    - Address: p-e1229598-12f1-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Health: Available
+      Hosting:
+      - neo4j
+      - system
+      ModeConstraint: PRIMARY
+      Name: p-e1229598-12f1-0001
+      RequestedHosting:
+      - neo4j
+      - system
+      ServerId: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+      State: Enabled
+      Version: 5.27-aura
+    SingleInstanceStatus:
+      desiredPods: 0
+      podsWithBoltAvailable: 0
+      runningPods: 0
+      updatedPods: 0
+    SystemDatabaseLeader: p-e1229598-12f1-0001
+    UserDatabaseLeader: p-e1229598-12f1-0001
+    appliedRoles:
+      console-data-viewer-v1: 1
+      console-member-v1: 1
+    appliedSettings:
+      disk: 4
+      memory: 1Gi
+      neo4jConfiguration: neo4j-configuration-2025.02.0-rc5-g692t8h56d
+      neo4jVersion: 2025.02.0-rc5
+      originBackup:
+        backupName: snapshot-e1229598-load-restore-n87n6-data
+        lastUpdatedTime: "2025-06-02T14:55:16.334384637Z"
+      virtDisk: 2
+    conditions:
+    - lastTransitionTime: "2025-06-20T08:01:32Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: 'Single-member clusters are marked fault-tolerant with 1 healthy member.
+        Members replicating: 1, quorum: 1.'
+      reason: isFaultTolerant
+      status: "True"
+      type: FaultTolerant
+    - lastTransitionTime: "2025-06-20T08:01:32Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Rafted check shows that replication is possible.
+      reason: CanReplicate
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-06-20T08:01:39Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Database finished reconciliation loop.
+      reason: Reconciled
+      status: "True"
+      type: Reconciled
+    - lastTransitionTime: "2025-06-02T14:58:00Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is up to date.
+      reason: NoUpdatePending
+      status: "False"
+      type: Updating
+    - lastTransitionTime: "2025-06-02T14:58:01Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is not Restoring.
+      reason: NoRestorePending
+      status: "False"
+      type: Restoring
+    - lastTransitionTime: "2025-06-19T12:15:20Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is not backing Up.
+      reason: NoBackupPending
+      status: "False"
+      type: BackingUp
+    - lastTransitionTime: "2025-06-20T08:00:07Z"
+      lastUpdateTime: "2025-06-20T08:04:23Z"
+      message: Database finished reconciliation loop.
+      reason: Reconciled
+      status: "True"
+      type: BackendReconciled
+    - lastTransitionTime: "2025-06-02T14:56:50Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Cluster backend is running.
+      reason: Running
+      status: "True"
+      type: BackendRunning
+    - lastTransitionTime: "2025-06-02T14:57:44Z"
+      lastUpdateTime: "2025-06-20T08:03:54Z"
+      message: pool primary is up-to-date
+      reason: NoUpdatePending
+      status: "False"
+      type: PrimariesUpdating
+    - lastTransitionTime: "2025-06-02T14:55:28Z"
+      lastUpdateTime: "2025-06-20T08:04:23Z"
+      message: pool secondary is up-to-date
+      reason: NoUpdatePending
+      status: "False"
+      type: SecondariesUpdating
+    - lastTransitionTime: "2025-06-20T08:01:29Z"
+      lastUpdateTime: "2025-06-20T08:04:22Z"
+      message: 'Single-member clusters are marked fault-tolerant with 1 healthy member.
+        Members replicating: 1, quorum: 1.'
+      reason: CheckPassed
+      status: "True"
+      type: SystemDatabaseFaultTolerant
+    - lastTransitionTime: "2025-06-20T08:01:29Z"
+      lastUpdateTime: "2025-06-20T08:04:22Z"
+      message: Rafted check shows that replication is possible.
+      reason: CanReplicate
+      status: "True"
+      type: SystemDatabaseWriteAvailable
+    - lastTransitionTime: "2025-06-20T08:01:18Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Public ingress available.
+      reason: CheckPassed
+      status: "True"
+      type: PublicAvailable
+    - lastTransitionTime: "2025-06-20T08:01:18Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Private ingress available.
+      reason: CheckPassed
+      status: "True"
+      type: PrivateAvailable
+    - lastTransitionTime: "2025-06-02T14:57:03Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: No transfer currently requested.
+      reason: NotRequested
+      status: "False"
+      type: OperatorTransferring
+    - lastTransitionTime: "2025-06-02T14:58:00Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is not resizing, size is 1Gi.
+      reason: NoResizePending
+      status: "False"
+      type: Resizing
+    - lastTransitionTime: "2025-06-20T08:02:12Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Threshold isn't exceeded.
+      reason: IsWithinSafetyMargins
+      status: "False"
+      type: OutOfDisk
+    - lastTransitionTime: "2025-06-02T14:58:01Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is not loading.
+      reason: NoLoadPending
+      status: "False"
+      type: Loading
+    - lastTransitionTime: "2025-06-02T14:58:01Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: No scaling in progress.
+      reason: NoScalingPending
+      status: "False"
+      type: PrimariesScaling
+    - lastTransitionTime: "2025-06-02T14:58:01Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: No scaling in progress.
+      reason: NoScalingPending
+      status: "False"
+      type: SecondariesScaling
+    cypherRoleNames:
+      console-data-viewer-v1: console_data_viewer_e1229598
+      console-member-v1: console_member_e1229598
+    databaseSizes:
+      lastUpdatedTime: "2025-06-20T08:01:40Z"
+      systemBytes: 1459100
+      userBytes: 878090
+    diskUsageBytes: 5750784
+    hostClusterId: e1229598-12f1
+    internalDatabaseMetadata:
+      storeFormat: block-block-1.1
+    lastActivity: "2025-06-16T12:59:17Z"
+    lastActivityReconcileTime: "2025-06-20T08:01:39Z"
+    lastCompletedBackupTime: "2025-06-19T12:13:09Z"
+    neo4jPlugins:
+    - name: apoc
+      sourceFile: apoc-2025.02.0-core.jar
+    - name: aura
+      sourceFile: aura-plugins-2025.02.0.jar
+    - name: genai
+      sourceFile: neo4j-genai-plugin-2025.02.0.jar
+    observedGeneration: 4
+    outOfDiskReconcileTime: "2025-06-20T08:04:57Z"
+    phase: Running
+    raftStatuses:
+      neo4j:
+        raftMembers:
+        - address: p-e1229598-12f1-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: neo4j
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+          recognisedLeaderTerm: 19
+          replicationSuccessful: true
+          requester: true
+          serverId: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+          serverName: p-e1229598-12f1-0001
+      system:
+        raftMembers:
+        - address: p-e1229598-12f1-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: system
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+          recognisedLeaderTerm: 20
+          replicationSuccessful: true
+          requester: true
+          serverId: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+          serverName: p-e1229598-12f1-0001
+    readyToMonitor: true
+    sourceBackupv2:
+      backupName: 4ec748b4-53a8-491e-bd6f-f2eb42f4fb9b
+      lastUpdatedTime: "2025-06-19T12:15:20.682430759Z"
+    unifiedServerStatuses:
+    - address: p-e1229598-12f1-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      health: Available
+      hosting:
+      - neo4j
+      - system
+      modeConstraint: PRIMARY
+      neo4jFullVersion: 5.27-aura
+      requestedHosting:
+      - neo4j
+      - system
+      serverId: 32b4be31-f521-4ed5-9ff4-787b96d55e30
+      serverName: p-e1229598-12f1-0001
+      serverPool: primary
+      state: Enabled
+      statefulSetExists: true
+      statefulSetName: p-e1229598-12f1-0001
+      statefulSetNeedsReplacing: false
+      statefulSetReady: true
+- apiVersion: neo4j.io/v1
+  internalState:
+    loadRestoreState:
+      requestedAt: null
+    originBackup:
+      backupName: snapshot-e8d2f167-load-restore-hn49f-data
+      lastUpdatedTime: "2025-06-02T14:55:15.54846545Z"
+    replacingBackend: false
+    transferringBackend: false
+  kind: Neo4jDatabase
+  metadata:
+    creationTimestamp: "2025-06-02T14:52:49Z"
+    generation: 4
+    labels:
+      alias: Mindful-Socrates
+      aura-priority: medium
+      aura-tier: mte
+      billing-identity: multi_tenant_enterprise_payg
+      console-tenant-id: 6bd13ce5-2c8f-43bd-869f-0bfd398c5de2
+      database-size: 2Gi
+      dbid: e8d2f167
+      neo4j-configuration-configmap: neo4j-configuration-2025.02.0-rc5-g692t8h56d
+      neo4j-full-version: 2025.02.0-rc5
+      neo4j-major-version: "5"
+      operator: neo4j-operator-00004
+      owner: 6bd13ce5-2c8f-43bd-869f-0bfd398c5de2
+    name: e8d2f167
+    namespace: default
+    resourceVersion: "56500059"
+    uid: 066909c2-5944-46bf-b652-a648414fc1fa
+  spec:
+    additionalSettings:
+      backup:
+        checkConsistency: true
+        concurrencyPolicy: Allow
+        failedBackupsHistoryLimit: 0
+        frequencyMinutes: 60
+        retentionDays: 30
+        successfulBackupsHistoryLimit: 0
+        suspend: false
+      logicalRestrictions:
+        maxNodeCount: -1
+        maxRelationshipCount: -1
+      plugins: []
+    clusterId: e8d2f167
+    coreCount: 3
+    coreDisk:
+      size: 64
+      virtSize: 4
+    coreMemory:
+      packingEfficiency: true
+      size: 2Gi
+    cypherRoles:
+    - console-member-v1
+    - console-data-viewer-v1
+    - console-admin-bc-v1
+    databaseName: neo4j
+    dbid: e8d2f167
+    dnsName: e8d2f167-duvaleks6.databases.neo4j-dev.io
+    features:
+    - ld-downsize-real-disk
+    - ld-higher-backup-page-cache
+    - ld-restore-with-cosi
+    - ld-service-roles
+    - ld-skip-backup-recovery
+    fineGrainedRBAC: true
+    multiZone: true
+    neo4jMajorVersion: "5"
+    password: nRi_XEdrQ1gC3ZV6FNoLzK_<resumed>
+    primariesCount: 3
+    publicBoltPort: 7687
+    ssoConfig: |
+      dbms.security.authorization_providers=native,oidc-aura-seamless-connection
+      dbms.security.authentication_providers=native,oidc-aura-seamless-connection
+      dbms.security.oidc.aura-seamless-connection.display_name=Seamless
+      dbms.security.oidc.aura-seamless-connection.issuer=https://console-duvaleks6.neo4j-dev.io
+      dbms.security.oidc.aura-seamless-connection.jwks_uri=https://console-duvaleks6.neo4j-dev.io/.well-known/jwks.json
+      dbms.security.oidc.aura-seamless-connection.audience=e8d2f167
+      dbms.security.oidc.aura-seamless-connection.claims.username=sub
+      dbms.security.oidc.aura-seamless-connection.claims.groups=groups
+      dbms.security.oidc.aura-seamless-connection.visible=false
+    ssoK8sConfig:
+      dbms.security.authentication_providers: oidc-k8s,native
+      dbms.security.authorization_providers: oidc-k8s,native
+      dbms.security.oidc.k8s.audience: neo4j-operator-duvaleks6-orch-0001
+      dbms.security.oidc.k8s.auth_flow: pkce
+      dbms.security.oidc.k8s.authorization.group_to_role_mapping: neo4j-operator-duvaleks6-orch-0001=neo4j_operator
+      dbms.security.oidc.k8s.claims.groups: aud
+      dbms.security.oidc.k8s.claims.username: sub
+      dbms.security.oidc.k8s.config: token_type_principal=id_token;token_type_authentication=id_token
+      dbms.security.oidc.k8s.display_name: k8s
+      dbms.security.oidc.k8s.well_known_discovery_uri: https://oidc.eks.eu-west-1.amazonaws.com/id/2DE6D91A227C68B79A651A6C9A2E877C/.well-known/openid-configuration
+    storageClassSettings:
+      coreStorageClassIdentifier: core-gp3-csi
+      jobStorageClassIdentifier: core-gp3-csi
+  status:
+    ClusterStatuses:
+      neo4j:
+        DesiredMembers: 3
+        Members:
+          p-e8d2f167-ddea-0001:
+            DiscoveryHealthy: true
+            Healthy: true
+            InRaftGroup: true
+            Leader: 6ab43347-6006-4c70-98e6-a4381947bf25
+            MemberID: d451f9d3-3332-4ed6-856d-37f63172d39d
+            RecentContactWithLeader: true
+          p-e8d2f167-ddea-0002:
+            DiscoveryHealthy: true
+            Healthy: true
+            InRaftGroup: true
+            Leader: 6ab43347-6006-4c70-98e6-a4381947bf25
+            MemberID: 6ab43347-6006-4c70-98e6-a4381947bf25
+            RecentContactWithLeader: true
+          p-e8d2f167-ddea-0003:
+            DiscoveryHealthy: true
+            Healthy: true
+            InRaftGroup: true
+            Leader: 6ab43347-6006-4c70-98e6-a4381947bf25
+            MemberID: aa4b958a-3d6f-4c2d-9c18-0e5150ea0066
+            RecentContactWithLeader: true
+        MembersRunningLatestVersion: 0
+        MembersWithBoltAvailable: 3
+        RunningMembers: 3
+        VotingMembers: 3
+      system:
+        DesiredMembers: 3
+        Members:
+          p-e8d2f167-ddea-0001:
+            DiscoveryHealthy: true
+            Healthy: true
+            InRaftGroup: true
+            Leader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+            MemberID: 0ea3dd20-62d4-4bb9-bc1a-14332084ddbf
+            RecentContactWithLeader: true
+          p-e8d2f167-ddea-0002:
+            DiscoveryHealthy: true
+            Healthy: true
+            InRaftGroup: true
+            Leader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+            MemberID: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+            RecentContactWithLeader: true
+          p-e8d2f167-ddea-0003:
+            DiscoveryHealthy: true
+            Healthy: true
+            InRaftGroup: true
+            Leader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+            MemberID: 5b515cbb-0076-451b-839e-ccb8f5bb7cb2
+            RecentContactWithLeader: true
+        MembersRunningLatestVersion: 0
+        MembersWithBoltAvailable: 3
+        RunningMembers: 3
+        VotingMembers: 3
+    DatabaseCounts:
+      currentNodes: 140671
+      currentRelationship: 16
+      lastUpdate: "2025-06-20T08:04:57Z"
+    ShowDatabasesStatus:
+    - Access: read-write
+      Address: p-e8d2f167-ddea-0002.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 3
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: A4FB80955FEFDF886CA082415D766D5D33BA5C34E374688C77B4E7A05A8F2F19
+      Default: true
+      Home: true
+      LastCommittedTxn: 140684
+      Name: neo4j
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 3
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+      StatusMessage: ""
+      Store: block-block-1.1
+      Type: standard
+      Writer: true
+    - Access: read-write
+      Address: p-e8d2f167-ddea-0003.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 3
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: A4FB80955FEFDF886CA082415D766D5D33BA5C34E374688C77B4E7A05A8F2F19
+      Default: true
+      Home: true
+      LastCommittedTxn: 140684
+      Name: neo4j
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 3
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 5b515cbb-0076-451b-839e-ccb8f5bb7cb2
+      StatusMessage: ""
+      Store: block-block-1.1
+      Type: standard
+      Writer: false
+    - Access: read-write
+      Address: p-e8d2f167-ddea-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 3
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: A4FB80955FEFDF886CA082415D766D5D33BA5C34E374688C77B4E7A05A8F2F19
+      Default: true
+      Home: true
+      LastCommittedTxn: 140684
+      Name: neo4j
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 3
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 0ea3dd20-62d4-4bb9-bc1a-14332084ddbf
+      StatusMessage: ""
+      Store: block-block-1.1
+      Type: standard
+      Writer: false
+    - Access: read-write
+      Address: p-e8d2f167-ddea-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 3
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: 0558C8B8D23FCFF01F55CA5F8A6722E4E09563DF798447D8DBB46A4FF33C9A22
+      Default: false
+      Home: false
+      LastCommittedTxn: 145
+      Name: system
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 0
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 0ea3dd20-62d4-4bb9-bc1a-14332084ddbf
+      StatusMessage: ""
+      Store: record-aligned-1.1
+      Type: system
+      Writer: false
+    - Access: read-write
+      Address: p-e8d2f167-ddea-0003.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 3
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: 0558C8B8D23FCFF01F55CA5F8A6722E4E09563DF798447D8DBB46A4FF33C9A22
+      Default: false
+      Home: false
+      LastCommittedTxn: 145
+      Name: system
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 0
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 5b515cbb-0076-451b-839e-ccb8f5bb7cb2
+      StatusMessage: ""
+      Store: record-aligned-1.1
+      Type: system
+      Writer: false
+    - Access: read-write
+      Address: p-e8d2f167-ddea-0002.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Aliases: []
+      CurrentPrimariesCount: 3
+      CurrentSecondariesCount: 0
+      CurrentStatus: online
+      DatabaseID: 0558C8B8D23FCFF01F55CA5F8A6722E4E09563DF798447D8DBB46A4FF33C9A22
+      Default: false
+      Home: false
+      LastCommittedTxn: 145
+      Name: system
+      Options: '{}'
+      ReplicationLag: 0
+      RequestedPrimariesCount: 0
+      RequestedSecondariesCount: 0
+      RequestedStatus: online
+      Role: primary
+      ServerID: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+      StatusMessage: ""
+      Store: record-aligned-1.1
+      Type: system
+      Writer: true
+    ShowServersStatus:
+    - Address: p-e8d2f167-ddea-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Health: Available
+      Hosting:
+      - neo4j
+      - system
+      ModeConstraint: PRIMARY
+      Name: p-e8d2f167-ddea-0001
+      RequestedHosting:
+      - neo4j
+      - system
+      ServerId: 0ea3dd20-62d4-4bb9-bc1a-14332084ddbf
+      State: Enabled
+      Version: 5.27-aura
+    - Address: p-e8d2f167-ddea-0002.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Health: Available
+      Hosting:
+      - neo4j
+      - system
+      ModeConstraint: PRIMARY
+      Name: p-e8d2f167-ddea-0002
+      RequestedHosting:
+      - neo4j
+      - system
+      ServerId: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+      State: Enabled
+      Version: 5.27-aura
+    - Address: p-e8d2f167-ddea-0003.duvaleks6-orch-0001.neo4j-dev.io:7687
+      Health: Available
+      Hosting:
+      - neo4j
+      - system
+      ModeConstraint: PRIMARY
+      Name: p-e8d2f167-ddea-0003
+      RequestedHosting:
+      - neo4j
+      - system
+      ServerId: 5b515cbb-0076-451b-839e-ccb8f5bb7cb2
+      State: Enabled
+      Version: 5.27-aura
+    SingleInstanceStatus:
+      desiredPods: 0
+      podsWithBoltAvailable: 0
+      runningPods: 0
+      updatedPods: 0
+    SystemDatabaseLeader: p-e8d2f167-ddea-0002
+    UserDatabaseLeader: p-e8d2f167-ddea-0002
+    appliedRoles:
+      console-data-viewer-v1: 1
+      console-member-v1: 1
+    appliedSettings:
+      disk: 64
+      memory: 2Gi
+      neo4jConfiguration: neo4j-configuration-2025.02.0-rc5-g692t8h56d
+      neo4jVersion: 2025.02.0-rc5
+      originBackup:
+        backupName: snapshot-e8d2f167-load-restore-hn49f-data
+        lastUpdatedTime: "2025-06-02T14:55:15.54846545Z"
+      virtDisk: 4
+    conditions:
+    - lastTransitionTime: "2025-06-20T08:01:28Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: 'Members replicating: 3, quorum: 2'
+      reason: isFaultTolerant
+      status: "True"
+      type: FaultTolerant
+    - lastTransitionTime: "2025-06-20T08:01:28Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Rafted check shows that replication is possible.
+      reason: CanReplicate
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-06-20T08:02:46Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Database finished reconciliation loop.
+      reason: Reconciled
+      status: "True"
+      type: Reconciled
+    - lastTransitionTime: "2025-06-02T14:59:23Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is up to date.
+      reason: NoUpdatePending
+      status: "False"
+      type: Updating
+    - lastTransitionTime: "2025-06-02T14:59:24Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is not Restoring.
+      reason: NoRestorePending
+      status: "False"
+      type: Restoring
+    - lastTransitionTime: "2025-06-20T08:02:45Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Database is not backing Up.
+      reason: NoBackupPending
+      status: "False"
+      type: BackingUp
+    - lastTransitionTime: "2025-06-20T08:01:28Z"
+      lastUpdateTime: "2025-06-20T08:03:54Z"
+      message: Database finished reconciliation loop.
+      reason: Reconciled
+      status: "True"
+      type: BackendReconciled
+    - lastTransitionTime: "2025-06-02T14:58:30Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Cluster backend is running.
+      reason: Running
+      status: "True"
+      type: BackendRunning
+    - lastTransitionTime: "2025-06-02T14:59:06Z"
+      lastUpdateTime: "2025-06-20T08:03:54Z"
+      message: pool primary is up-to-date
+      reason: NoUpdatePending
+      status: "False"
+      type: PrimariesUpdating
+    - lastTransitionTime: "2025-06-02T14:55:51Z"
+      lastUpdateTime: "2025-06-20T08:03:54Z"
+      message: pool secondary is up-to-date
+      reason: NoUpdatePending
+      status: "False"
+      type: SecondariesUpdating
+    - lastTransitionTime: "2025-06-20T08:01:27Z"
+      lastUpdateTime: "2025-06-20T08:03:54Z"
+      message: 'Members replicating: 3, quorum: 2'
+      reason: CheckPassed
+      status: "True"
+      type: SystemDatabaseFaultTolerant
+    - lastTransitionTime: "2025-06-20T08:01:27Z"
+      lastUpdateTime: "2025-06-20T08:03:54Z"
+      message: Rafted check shows that replication is possible.
+      reason: CanReplicate
+      status: "True"
+      type: SystemDatabaseWriteAvailable
+    - lastTransitionTime: "2025-06-20T08:01:22Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Public ingress available.
+      reason: CheckPassed
+      status: "True"
+      type: PublicAvailable
+    - lastTransitionTime: "2025-06-20T08:01:20Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: Private ingress available.
+      reason: CheckPassed
+      status: "True"
+      type: PrivateAvailable
+    - lastTransitionTime: "2025-06-02T14:58:41Z"
+      lastUpdateTime: "2025-06-20T08:04:57Z"
+      message: No transfer currently requested.
+      reason: NotRequested
+      status: "False"
+      type: OperatorTransferring
+    - lastTransitionTime: "2025-06-02T14:59:23Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is not resizing, size is 2Gi.
+      reason: NoResizePending
+      status: "False"
+      type: Resizing
+    - lastTransitionTime: "2025-06-20T08:02:12Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Threshold isn't exceeded.
+      reason: IsWithinSafetyMargins
+      status: "False"
+      type: OutOfDisk
+    - lastTransitionTime: "2025-06-02T14:59:24Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: Database is not loading.
+      reason: NoLoadPending
+      status: "False"
+      type: Loading
+    - lastTransitionTime: "2025-06-02T14:59:24Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: No scaling in progress.
+      reason: NoScalingPending
+      status: "False"
+      type: PrimariesScaling
+    - lastTransitionTime: "2025-06-02T14:59:24Z"
+      lastUpdateTime: "2025-06-20T08:04:24Z"
+      message: No scaling in progress.
+      reason: NoScalingPending
+      status: "False"
+      type: SecondariesScaling
+    cypherRoleNames:
+      console-data-viewer-v1: console_data_viewer_e8d2f167
+      console-member-v1: console_member_e8d2f167
+    databaseSizes:
+      lastUpdatedTime: "2025-06-20T08:01:35Z"
+      systemBytes: 1459100
+      userBytes: 19023377
+    diskUsageBytes: 66936832
+    hostClusterId: e8d2f167-ddea
+    internalDatabaseMetadata:
+      storeFormat: block-block-1.1
+    lastActivity: "2025-06-12T15:13:30Z"
+    lastActivityReconcileTime: "2025-06-20T08:01:33Z"
+    lastCompletedBackupTime: "2025-06-20T07:47:16Z"
+    neo4jPlugins:
+    - name: apoc
+      sourceFile: apoc-2025.02.0-core.jar
+    - name: aura
+      sourceFile: aura-plugins-2025.02.0.jar
+    - name: genai
+      sourceFile: neo4j-genai-plugin-2025.02.0.jar
+    observedGeneration: 4
+    outOfDiskReconcileTime: "2025-06-20T08:04:57Z"
+    phase: Running
+    raftStatuses:
+      neo4j:
+        raftMembers:
+        - address: p-e8d2f167-ddea-0002.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: neo4j
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          recognisedLeaderTerm: 18
+          replicationSuccessful: true
+          requester: false
+          serverId: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          serverName: p-e8d2f167-ddea-0002
+        - address: p-e8d2f167-ddea-0003.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: neo4j
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          recognisedLeaderTerm: 18
+          replicationSuccessful: true
+          requester: false
+          serverId: 5b515cbb-0076-451b-839e-ccb8f5bb7cb2
+          serverName: p-e8d2f167-ddea-0003
+        - address: p-e8d2f167-ddea-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: neo4j
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          recognisedLeaderTerm: 18
+          replicationSuccessful: true
+          requester: true
+          serverId: 0ea3dd20-62d4-4bb9-bc1a-14332084ddbf
+          serverName: p-e8d2f167-ddea-0001
+      system:
+        raftMembers:
+        - address: p-e8d2f167-ddea-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: system
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          recognisedLeaderTerm: 16
+          replicationSuccessful: true
+          requester: true
+          serverId: 0ea3dd20-62d4-4bb9-bc1a-14332084ddbf
+          serverName: p-e8d2f167-ddea-0001
+        - address: p-e8d2f167-ddea-0003.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: system
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          recognisedLeaderTerm: 16
+          replicationSuccessful: true
+          requester: false
+          serverId: 5b515cbb-0076-451b-839e-ccb8f5bb7cb2
+          serverName: p-e8d2f167-ddea-0003
+        - address: p-e8d2f167-ddea-0002.duvaleks6-orch-0001.neo4j-dev.io:7687
+          database: system
+          error: ""
+          memberStatus: APPLYING
+          recognisedLeader: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          recognisedLeaderTerm: 16
+          replicationSuccessful: true
+          requester: false
+          serverId: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+          serverName: p-e8d2f167-ddea-0002
+    readyToMonitor: true
+    sourceBackupv2:
+      backupName: cf5da685-03ca-4de4-84e5-66a94f3b15b6
+      lastUpdatedTime: "2025-06-20T08:02:45.750431468Z"
+    unifiedServerStatuses:
+    - address: p-e8d2f167-ddea-0001.duvaleks6-orch-0001.neo4j-dev.io:7687
+      health: Available
+      hosting:
+      - neo4j
+      - system
+      modeConstraint: PRIMARY
+      neo4jFullVersion: 5.27-aura
+      requestedHosting:
+      - neo4j
+      - system
+      serverId: 0ea3dd20-62d4-4bb9-bc1a-14332084ddbf
+      serverName: p-e8d2f167-ddea-0001
+      serverPool: primary
+      state: Enabled
+      statefulSetExists: true
+      statefulSetName: p-e8d2f167-ddea-0001
+      statefulSetNeedsReplacing: false
+      statefulSetReady: true
+    - address: p-e8d2f167-ddea-0002.duvaleks6-orch-0001.neo4j-dev.io:7687
+      health: Available
+      hosting:
+      - neo4j
+      - system
+      modeConstraint: PRIMARY
+      neo4jFullVersion: 5.27-aura
+      requestedHosting:
+      - neo4j
+      - system
+      serverId: 72f00471-54d4-47ee-86e2-3d5e9c9f2414
+      serverName: p-e8d2f167-ddea-0002
+      serverPool: primary
+      state: Enabled
+      statefulSetExists: true
+      statefulSetName: p-e8d2f167-ddea-0002
+      statefulSetNeedsReplacing: false
+      statefulSetReady: true
+    - address: p-e8d2f167-ddea-0003.duvaleks6-orch-0001.neo4j-dev.io:7687
+      health: Available
+      hosting:
+      - neo4j
+      - system
+      modeConstraint: PRIMARY
+      neo4jFullVersion: 5.27-aura
+      requestedHosting:
+      - neo4j
+      - system
+      serverId: 5b515cbb-0076-451b-839e-ccb8f5bb7cb2
+      serverName: p-e8d2f167-ddea-0003
+      serverPool: primary
+      state: Enabled
+      statefulSetExists: true
+      statefulSetName: p-e8d2f167-ddea-0003
+      statefulSetNeedsReplacing: false
+      statefulSetReady: true
+kind: List
+metadata:
+  resourceVersion: ""

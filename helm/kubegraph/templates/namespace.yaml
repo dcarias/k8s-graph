@@ -1,0 +1,16 @@
+{{- if and .Values.namespace.create .Values.namespace.name -}}
+# Namespace for kubegraph
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.namespace.name }}
+  {{- with .Values.namespace.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.namespace.labels }}
+  labels:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- include "kubegraph.labels" . | nindent 4 }}
+{{- end }} 

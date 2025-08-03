@@ -1,0 +1,148 @@
+apiVersion: kubegraph.io/v1alpha1
+kind: Handler
+metadata:
+  name: neo4j-database-handler
+  annotations:
+    description: "Handler for Neo4j Database custom resources"
+spec:
+  resourceType: "Neo4jDatabase"
+  gvr:
+    group: "neo4j.io"
+    version: "v1"
+    resource: "neo4jdatabases"
+  enabled: true
+  priority: 300
+  properties:
+    name:
+      path: ".metadata.name"
+      type: "string"
+      required: true
+    uid:
+      path: ".metadata.uid"
+      type: "string"
+      required: true
+    namespace:
+      path: ".metadata.namespace"
+      type: "string"
+      required: true
+    creationTimestamp:
+      path: ".metadata.creationTimestamp"
+      type: "string"
+      transform: "timestamp"
+    labels:
+      path: ".metadata.labels"
+      type: "object"
+    annotations:
+      path: ".metadata.annotations"
+      type: "object"
+    phase:
+      path: ".status.phase"
+      type: "string"
+    dbid:
+      path: ".status.dbid"
+      type: "string"
+    singleInstance:
+      path: ".spec.singleInstance"
+      type: "bool"
+    coreCount:
+      path: ".spec.coreCount"
+      type: "int"
+    memory:
+      path: ".spec.memory"
+      type: "string"
+    disk:
+      path: ".spec.disk"
+      type: "string"
+    features:
+      path: ".spec.features"
+      type: "object"
+    cypherRoles:
+      path: ".spec.cypherRoles"
+      type: "object"
+    conditions:
+      path: ".status.conditions"
+      type: "array"
+    clusterStatuses:
+      path: ".status.clusterStatuses"
+      type: "array"
+    databaseStatuses:
+      path: ".status.databaseStatuses"
+      type: "array"
+    serverStatuses:
+      path: ".status.serverStatuses"
+      type: "array"
+    appliedSettings:
+      path: ".status.appliedSettings"
+      type: "object"
+    lastActivity:
+      path: ".status.lastActivity"
+      type: "string"
+    backupTimes:
+      path: ".status.backupTimes"
+      type: "object"
+    logicalRestrictions:
+      path: ".spec.logicalRestrictions"
+      type: "object"
+  relationships:
+    - type: "MANAGED_BY"
+      target: "StatefulSet"
+      direction: "outgoing"
+      selector:
+        byLabelSelector:
+          labels:
+            "app": "neo4j"
+            "database": ".metadata.name"
+    - type: "USES"
+      target: "ConfigMap"
+      direction: "outgoing"
+      selector:
+        byLabelSelector:
+          labels:
+            "app": "neo4j"
+            "database": ".metadata.name"
+    - type: "OWNS"
+      target: "Neo4jCluster"
+      direction: "outgoing"
+      selector:
+        byCustomQuery: |
+          MATCH (db:Neo4jDatabase {uid: $dbUid})
+          MATCH (cluster:Neo4jCluster)
+          WHERE db.singleInstance = false 
+          AND cluster.name = db.targetHostClusterId
+          RETURN cluster
+    - type: "OWNS"
+      target: "Neo4jSingleInstance"
+      direction: "outgoing"
+      selector:
+        byCustomQuery: |
+          MATCH (db:Neo4jDatabase {uid: $dbUid})
+          MATCH (si:Neo4jSingleInstance)
+          WHERE db.singleInstance = true 
+          AND si.dbid = db.dbid
+          RETURN si
+    - type: "OWNED_BY"
+      target: "Neo4jCluster"
+      direction: "incoming"
+      selector:
+        byOwnerReference: true
+    - type: "OWNED_BY"
+      target: "Neo4jSingleInstance"
+      direction: "incoming"
+      selector:
+        byOwnerReference: true
+  filters:
+    namespaces:
+      - "neo4j"
+      - "databases"
+    labels:
+      "app": "neo4j"
+  retryPolicy:
+    maxRetries: 5
+    backoffDelay: "2s"
+    maxDelay: "1m"
+  monitoring:
+    metrics: true
+    logging:
+      level: "debug"
+      events: true
+      errors: true 

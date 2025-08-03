@@ -1,0 +1,60 @@
+apiVersion: neo4j.io/v1
+kind: Neo4jDatabase
+metadata:
+  name: test-neo4j-db
+  namespace: default
+  labels:
+    test: "true"
+    dbid: "test123"
+spec:
+  clusterId: test-cluster
+  coreCount: 1
+  coreDisk:
+    size: 10
+    virtSize: 5
+  coreMemory:
+    packingEfficiency: true
+    size: "1Gi"
+  cypherRoles:
+    - console-member-v1
+    - console-data-viewer-v1
+  databaseName: neo4j
+  dbid: test123
+  dnsName: test-neo4j-db.example.com
+  features:
+    - ld-service-roles
+  neo4jMajorVersion: "5"
+  primariesCount: 1
+  publicBoltPort: 7687
+  zone: us-west-1a
+  additionalSettings:
+    backup:
+      frequencyMinutes: 1440
+      retentionDays: 30
+      checkConsistency: true
+      concurrencyPolicy: Allow
+      suspend: false
+    logicalRestrictions:
+      maxNodeCount: 1000000
+      maxRelationshipCount: 1000000
+    plugins: []
+status:
+  phase: Running
+  conditions:
+    - type: Available
+      status: "True"
+      reason: Running
+      message: "Database is available"
+  databaseCounts:
+    currentNodes: 100
+    currentRelationship: 50
+    lastUpdate: "2025-01-20T10:00:00Z"
+  systemDatabaseLeader: "test-leader"
+  userDatabaseLeader: "test-leader"
+  appliedRoles:
+    console-member-v1: 1
+    console-data-viewer-v1: 1
+  diskUsageBytes: 1073741824
+  hostClusterId: test-cluster-123
+  observedGeneration: 1
+  readyToMonitor: true 

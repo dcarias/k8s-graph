@@ -1,0 +1,15 @@
+FROM alpine:3.19
+
+WORKDIR /app
+
+# Install ca-certificates for HTTPS connections
+RUN apk --no-cache add ca-certificates
+
+# Copy the pre-built binary
+COPY kubegraph .
+
+# Make it executable
+RUN chmod +x kubegraph
+
+# Run the application
+CMD ["./kubegraph"] 

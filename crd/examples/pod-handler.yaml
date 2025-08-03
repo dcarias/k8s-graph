@@ -1,0 +1,132 @@
+apiVersion: kubegraph.io/v1alpha1
+kind: Handler
+metadata:
+  name: pod-handler
+  annotations:
+    description: "Handler for Kubernetes Pod resources"
+spec:
+  resourceType: "Pod"
+  gvr:
+    group: ""
+    version: "v1"
+    resource: "pods"
+  enabled: true
+  priority: 200
+  properties:
+    name:
+      path: ".metadata.name"
+      type: "string"
+      required: true
+    uid:
+      path: ".metadata.uid"
+      type: "string"
+      required: true
+    namespace:
+      path: ".metadata.namespace"
+      type: "string"
+      required: true
+    creationTimestamp:
+      path: ".metadata.creationTimestamp"
+      type: "string"
+      transform: "timestamp"
+    labels:
+      path: ".metadata.labels"
+      type: "object"
+    annotations:
+      path: ".metadata.annotations"
+      type: "object"
+    status:
+      path: ".status.phase"
+      type: "string"
+    podIP:
+      path: ".status.podIP"
+      type: "string"
+    nodeName:
+      path: ".spec.nodeName"
+      type: "string"
+    restartPolicy:
+      path: ".spec.restartPolicy"
+      type: "string"
+    containers:
+      path: ".spec.containers"
+      type: "array"
+    volumes:
+      path: ".spec.volumes"
+      type: "array"
+    securityContext:
+      path: ".spec.securityContext"
+      type: "object"
+    containerSecurityContexts:
+      path: ".spec.containers[*].securityContext"
+      type: "array"
+  relationships:
+    - type: "OWNED_BY"
+      target: "Deployment"
+      direction: "outgoing"
+      selector:
+        byOwnerReference: true
+    - type: "OWNED_BY"
+      target: "StatefulSet"
+      direction: "outgoing"
+      selector:
+        byOwnerReference: true
+    - type: "OWNED_BY"
+      target: "DaemonSet"
+      direction: "outgoing"
+      selector:
+        byOwnerReference: true
+    - type: "OWNED_BY"
+      target: "Job"
+      direction: "outgoing"
+      selector:
+        byOwnerReference: true
+    - type: "SCHEDULED_ON"
+      target: "Node"
+      direction: "outgoing"
+      selector:
+        byFieldSelector:
+          fields:
+            "metadata.name": ".spec.nodeName"
+    - type: "USES"
+      target: "PersistentVolumeClaim"
+      direction: "outgoing"
+      selector:
+        byCustomQuery: |
+          MATCH (pod:Pod {uid: $podUid})
+          MATCH (pvc:PersistentVolumeClaim)
+          WHERE pvc.name IN [vol IN pod.volumes WHERE vol.persistentVolumeClaim IS NOT NULL | vol.persistentVolumeClaim.claimName]
+          RETURN pvc
+    - type: "USES"
+      target: "Secret"
+      direction: "outgoing"
+      selector:
+        byCustomQuery: |
+          MATCH (pod:Pod {uid: $podUid})
+          MATCH (secret:Secret)
+          WHERE secret.name IN [vol IN pod.volumes WHERE vol.secret IS NOT NULL | vol.secret.secretName]
+          RETURN secret
+    - type: "USES"
+      target: "ConfigMap"
+      direction: "outgoing"
+      selector:
+        byCustomQuery: |
+          MATCH (pod:Pod {uid: $podUid})
+          MATCH (cm:ConfigMap)
+          WHERE cm.name IN [vol IN pod.volumes WHERE vol.configMap IS NOT NULL | vol.configMap.name]
+          RETURN cm
+  filters:
+    excludeNamespaces:
+      - "kube-system"
+      - "kube-public"
+    labels:
+      "app": ".*"
+  retryPolicy:
+    maxRetries: 3
+    backoffDelay: "1s"
+    maxDelay: "30s"
+  monitoring:
+    metrics: true
+    logging:
+      level: "info"
+      events: true
+      errors: true 
