@@ -11,8 +11,14 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# Code coverage profiles and other test artifacts
+coverage.*
+*.coverprofile
+profile.cov
+
 # Go workspace file
 go.work
+go.work.sum
 
 # IDE files
 .vscode/
@@ -55,3 +61,6 @@ kubeconfig.*
 # Local development
 .local/
 local/
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
