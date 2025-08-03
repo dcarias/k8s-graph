@@ -19,6 +19,7 @@ Perfect for:
 - ✅ **Neo4j Integration**: Real-time synchronization to Neo4j graph database
 - ✅ **Standard K8s Resources**: Pods, Deployments, Services, ConfigMaps, etc.
 - ✅ **Relationship Mapping**: Automatically creates relationships between resources
+- ✅ **Query CLI Tool**: Powerful `kubegraph-cli` for exploring the graph database
 - ✅ **Event Management**: Optional Kubernetes Events with TTL
 - ✅ **Instance Management**: Handles multiple cluster instances safely
 - ✅ **HTTP Status Server**: Built-in health and metrics endpoint
@@ -171,6 +172,113 @@ k8s-graph --help
 
 # Show version information
 k8s-graph --version
+```
+
+## kubegraph-cli - Neo4j Query Tool
+
+k8s-graph includes a powerful CLI tool for querying and exploring the Neo4j database populated by the monitoring service. The `kubegraph-cli` provides convenient commands for analyzing Kubernetes resources and their relationships.
+
+### Installation
+
+The CLI tool is included when you install k8s-graph:
+
+```bash
+# Build both tools
+go build -o k8s-graph .
+go build -o kubegraph-cli ./cmd/cli
+
+# Or use the pre-built binaries from releases
+```
+
+### Basic Usage
+
+```bash
+# Connect to Neo4j and explore
+kubegraph-cli --neo4j-uri neo4j://localhost:7687 nodes
+
+# Use environment file for configuration
+kubegraph-cli --env-file .env resources
+
+# Run custom Cypher queries
+kubegraph-cli query "MATCH (p:Pod) RETURN count(p)"
+```
+
+### Available Commands
+
+| Command | Description | Examples |
+|---------|-------------|----------|
+| `nodes` | List nodes by type | `kubegraph-cli nodes Pod 20` |
+| `relationships` | List relationships | `kubegraph-cli relationships OWNED_BY` |
+| `resources` | Resource counts summary | `kubegraph-cli resources` |
+| `pods` | List pods by namespace | `kubegraph-cli pods default` |
+| `services` | List services | `kubegraph-cli services kube-system` |
+| `deployments` | List deployments | `kubegraph-cli deployments` |
+| `events` | Show recent events | `kubegraph-cli events 50` |
+| `clusters` | List clusters | `kubegraph-cli clusters` |
+| `query` | Run custom Cypher | `kubegraph-cli query "MATCH (n) RETURN count(n)"` |
+| `stats` | Database statistics | `kubegraph-cli stats` |
+| `health` | Connection health check | `kubegraph-cli health` |
+
+### Practical Examples
+
+```bash
+# Explore your cluster structure
+kubegraph-cli resources                    # Overview of all resource types
+kubegraph-cli nodes                        # List all node types and counts
+kubegraph-cli relationships               # List all relationship types
+
+# Investigate specific resources
+kubegraph-cli pods production             # Pods in production namespace
+kubegraph-cli services                    # All services across cluster
+kubegraph-cli deployments kube-system     # System deployments
+
+# Analyze events and issues
+kubegraph-cli events 100                  # Recent 100 events
+kubegraph-cli security-risks              # Security analysis
+kubegraph-cli resource-pressure           # Resource pressure points
+
+# Custom analysis with Cypher
+kubegraph-cli query "MATCH (p:Pod)-[:OWNED_BY]->(d:Deployment) 
+                     WHERE d.namespace = 'production' 
+                     RETURN d.name, count(p) as pod_count 
+                     ORDER BY pod_count DESC"
+
+# Database maintenance
+kubegraph-cli stats                       # Database statistics
+kubegraph-cli health                      # Check Neo4j connectivity
+```
+
+### Configuration Options
+
+```bash
+# Connection settings
+--neo4j-uri string       Neo4j database URI
+--neo4j-username string  Neo4j username  
+--neo4j-password string  Neo4j password
+--env-file string        Load settings from .env file
+
+# Output options
+--show-query            Show the Cypher query being executed
+--show-emojis           Use emojis in output
+--show-related          Show related resources
+--cluster-name string   Filter by specific cluster
+```
+
+### Environment File
+
+Create a `.env` file for easy configuration:
+
+```bash
+# .env
+NEO4J_URI=neo4j://localhost:7687
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your-password
+CLUSTER_NAME=production
+```
+
+Then use it with any command:
+```bash
+kubegraph-cli --env-file .env pods
 ```
 
 ### Advanced Configuration
