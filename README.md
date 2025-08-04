@@ -552,6 +552,7 @@ We welcome contributions! Please:
 - **Secret Handling**: Secret data is never stored in Neo4j (metadata only)
 - **RBAC**: Follows least-privilege principle (read-only access)
 - **Neo4j Security**: Use secure connections and credentials for production
+- **Environment Files**: Never commit `.env` files with real credentials to version control. Use example files with placeholder values only.
 
 ## License
 
