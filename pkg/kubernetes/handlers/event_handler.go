@@ -78,11 +78,10 @@ func (h *EventHandler) HandleCreate(ctx context.Context, obj interface{}, neo4jC
 }
 
 func (h *EventHandler) HandleDelete(ctx context.Context, obj interface{}, neo4jClient *neo4j.Client) error {
-	event, err := ConvertToTyped[*corev1.Event](obj)
-	if err != nil {
-		return fmt.Errorf("failed to convert event: %w", err)
-	}
-	return HandleResourceDelete(ctx, "Event", string(event.UID), neo4jClient)
+	// Do not delete events from Neo4j when Kubernetes deletes them
+	// Events should persist in Neo4j and only be cleaned up via TTL mechanism
+	// using PruneExpiredEvents function
+	return nil
 }
 
 // PruneExpiredEvents deletes Event nodes older than the given TTL (in days)
