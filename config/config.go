@@ -2,9 +2,14 @@ package config
 
 type Config struct {
 	Neo4j struct {
-		URI      string
-		Username string
-		Password string
+		URI                            string
+		Username                       string
+		Password                       string
+		MaxConnectionPoolSize          int
+		ConnectionAcquisitionTimeout   int // in seconds
+		ConnectionLivenessCheckTimeout int // in seconds
+		MaxConnectionLifetime          int // in hours
+		MaxTransactionRetryTime        int // in seconds
 	}
 	Kubernetes struct {
 		ConfigPath  string
@@ -21,13 +26,23 @@ type Config struct {
 func NewConfig() *Config {
 	return &Config{
 		Neo4j: struct {
-			URI      string
-			Username string
-			Password string
+			URI                            string
+			Username                       string
+			Password                       string
+			MaxConnectionPoolSize          int
+			ConnectionAcquisitionTimeout   int
+			ConnectionLivenessCheckTimeout int
+			MaxConnectionLifetime          int
+			MaxTransactionRetryTime        int
 		}{
-			URI:      "neo4j://localhost:7687",
-			Username: "neo4j",
-			Password: "password",
+			URI:                            "neo4j://localhost:7687",
+			Username:                       "neo4j",
+			Password:                       "password",
+			MaxConnectionPoolSize:          50,
+			ConnectionAcquisitionTimeout:   30,
+			ConnectionLivenessCheckTimeout: 30,
+			MaxConnectionLifetime:          1,
+			MaxTransactionRetryTime:        15,
 		},
 		Kubernetes: struct {
 			ConfigPath  string
